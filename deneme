@@ -1,0 +1,43 @@
+isim = input("İsminizi girin: ")
+tc = ""
+
+while len(tc) != 11:
+    try:
+        tc = input("TC kimlik numaranızı girin (11 haneli): ")
+        if len(tc) != 11:
+            raise ValueError("Hatalı giriş! TC kimlik numarası 11 haneli olmalıdır. Tekrar girin.")
+        int(tc)  # TC kimlik numarasının tamamen sayısal olup olmadığını kontrol etmek için int dönüşümü yapılır
+    except ValueError as e:
+        print(e)
+
+isim_kodu = ""
+tc_kodu = ""
+i = 0
+
+while i < len(isim):
+    harf = isim[i]
+    if harf.isalpha():
+        isim_kodu += harf.upper()
+        isim_kodu += harf.lower()
+    i += 1
+
+i = 0
+
+while i < len(tc):
+    harf = tc[i]
+    if harf.isdigit():
+        tc_kodu += str(ord(harf) - ord("0") + 1)
+        tc_kodu += str(ord(harf) - ord("0") + 1)
+    i += 1
+
+if not isim_kodu or not tc_kodu:
+    print("Hatalı giriş! İsim harf içermeli, TC kimlik numarası ise tamamen sayısal olmalıdır.")
+else:
+    cikti = ""
+    i = 0
+
+    while i < len(isim_kodu):
+        cikti += chr(ord(isim_kodu[i]) + int(tc_kodu[i]))
+        i += 1
+
+    print("Şifren:", cikti)
